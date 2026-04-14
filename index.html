@@ -265,22 +265,121 @@
     .success-msg {
       display: none;
       text-align: center;
-      padding: 48px 32px;
+      padding: 36px 32px 40px;
     }
 
-    .success-msg .icon { font-size: 52px; margin-bottom: 16px; }
+    /* ── Success pool ── */
+    .success-pool {
+      position: relative;
+      height: 100px;
+      margin: 0 auto 22px;
+      max-width: 300px;
+
+      /* Water fill */
+      background: linear-gradient(180deg, #6dcde0 0%, #3fafc8 50%, #3399b5 100%);
+      border-radius: 4px;
+
+      /* Tile border: alternating teal squares like the main banner */
+      border: 10px solid transparent;
+      border-image: repeating-linear-gradient(
+        90deg,
+        #5aab9e 0px,  #5aab9e 14px,
+        #7ec8d8 14px, #7ec8d8 16px
+      ) 10;
+
+      /* Outer pool deck edge */
+      outline: 3px solid #4a9a8e;
+      outline-offset: 0px;
+
+      /* Inner water shimmer */
+      box-shadow:
+        inset 0 6px 18px rgba(255,255,255,0.25),
+        inset 0 -4px 10px rgba(0,0,0,0.08);
+
+      overflow: visible;
+    }
+
+    /* Lane dividers */
+    .success-pool::before {
+      content: '';
+      position: absolute;
+      inset: 8px 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent       0px,
+        transparent       calc(33.33% - 1px),
+        rgba(255,255,255,0.3) calc(33.33% - 1px),
+        rgba(255,255,255,0.3) 33.33%,
+        transparent       33.33%,
+        transparent       calc(66.66% - 1px),
+        rgba(255,255,255,0.3) calc(66.66% - 1px),
+        rgba(255,255,255,0.3) 66.66%
+      );
+    }
+
+    /* Water highlight */
+    .success-pool::after {
+      content: '';
+      position: absolute;
+      top: 8px; left: 12px; right: 12px;
+      height: 14px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 8px;
+    }
+
+    .pool-person {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      line-height: 1;
+      animation: bob 2.4s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .pool-person:nth-child(1) { left: 16px;                                  animation-delay: 0s; }
+    .pool-person:nth-child(2) { left: 50%; transform: translate(-50%, -50%); animation-delay: 0.5s; }
+    .pool-person:nth-child(3) { right: 16px;                                 animation-delay: 1s; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(-50%); }
+      50%       { transform: translateY(calc(-50% - 6px)); }
+    }
+    .pool-person:nth-child(2) { animation-name: bob2; }
+    @keyframes bob2 {
+      0%, 100% { transform: translate(-50%, -50%); }
+      50%       { transform: translate(-50%, calc(-50% - 6px)); }
+    }
+
+    /* Ice cream row */
+    .success-treats {
+      font-size: 26px;
+      letter-spacing: 6px;
+      margin-bottom: 18px;
+      animation: fadeSlideUp 0.5s ease both;
+      animation-delay: 0.15s;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     .success-msg h2 {
       font-family: 'Dancing Script', cursive;
       font-size: 32px;
       color: var(--orange);
       margin-bottom: 10px;
+      animation: fadeSlideUp 0.5s ease both;
+      animation-delay: 0.25s;
     }
 
     .success-msg p {
       font-family: 'Playfair Display', serif;
       font-size: 15px;
       color: var(--mid);
+      animation: fadeSlideUp 0.5s ease both;
+      animation-delay: 0.35s;
       line-height: 1.7;
     }
 
@@ -473,7 +572,7 @@
 
   <!-- Header -->
   <div class="header">
-    <div class="date-badge">June 20th, 2025</div>
+    <div class="date-badge">June 20th, 2026</div>
     <div class="tagline">One last dip before<br>the big trip</div>
     <p class="subhead">
       Join us for a family friendly pool party<br>
@@ -493,20 +592,13 @@
     </div>
 
     <!--
-      ╔══════════════════════════════════════════════════════════╗
-      ║  SETUP INSTRUCTIONS                                      ║
-      ║  1. Go to https://formspree.io and create a free account ║
-      ║  2. Click "New Form", name it "Pool Party RSVP"          ║
-      ║  3. Copy your form endpoint (looks like:                 ║
-      ║     https://formspree.io/f/xyzabcde)                     ║
-      ║  4. Replace YOUR_FORMSPREE_ID below with that endpoint   ║
-      ╚══════════════════════════════════════════════════════════╝
+      ╔══════════════════════════════════════════════════════════════╗
+      ║  SETUP: paste your Apps Script Web App URL below            ║
+      ║  (see apps-script.gs for full instructions)                 ║
+      ╚══════════════════════════════════════════════════════════════╝
     -->
-    <form
-      id="rsvpForm"
-      action="https://formspree.io/f/xnjlqrnk"
-      method="POST"
-    >
+    <form id="rsvpForm" method="POST"
+          data-endpoint="YOUR_APPS_SCRIPT_URL_HERE">
 
       <!-- Attending? -->
       <div class="field">
@@ -571,13 +663,28 @@
 
     </form>
 
-    <!-- Success message (shown after submit) -->
-    <div class="success-msg" id="successMsg">
-      <div class="icon">🏊</div>
+    <!-- Success message: attending -->
+    <div class="success-msg" id="successYes">
+      <div class="success-pool">
+        <div class="pool-person">🍦</div>
+        <div class="pool-person">🛟</div>
+        <div class="pool-person">🍹</div>
+      </div>
+      <div class="success-treats">🍦 🥂 🕶️ 🍔 🌍</div>
       <h2>See you at the pool!</h2>
       <p>
         Thanks — we've got your RSVP.<br>
         We can't wait to celebrate before the adventure begins!
+      </p>
+    </div>
+
+    <!-- Success message: declining -->
+    <div class="success-msg" id="successNo">
+      <div style="font-size:52px; margin-bottom:16px">😢</div>
+      <h2>We'll miss you!</h2>
+      <p>
+        Sorry we won't see you on the 20th —<br>
+        we hope to see you before we leave!
       </p>
     </div>
   </div>
@@ -609,30 +716,34 @@
   yesRadio.addEventListener('change', updateGuestSection);
   noRadio.addEventListener('change', updateGuestSection);
 
-  // Handle form submission with fetch (keeps user on page)
+  // Handle form submission → Google Apps Script
   const form       = document.getElementById('rsvpForm');
-  const successMsg = document.getElementById('successMsg');
+  const successYes = document.getElementById('successYes');
+  const successNo  = document.getElementById('successNo');
+  const ENDPOINT   = form.dataset.endpoint;
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const btn = form.querySelector('.btn-submit');
+    const btn       = form.querySelector('.btn-submit');
+    const attending = form.querySelector('input[name="attending"]:checked');
+    const isYes     = attending && attending.value.toLowerCase().includes('yes');
+
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
     try {
-      const res = await fetch(form.action, {
-        method:  'POST',
-        body:    new FormData(form),
-        headers: { 'Accept': 'application/json' }
+      // Apps Script requires no-cors; we optimistically show success
+      await fetch(ENDPOINT, {
+        method: 'POST',
+        body:   new FormData(form),
+        mode:   'no-cors'
       });
-
-      if (res.ok) {
-        form.style.display = 'none';
-        successMsg.style.display = 'block';
+      form.style.display = 'none';
+      if (isYes) {
+        successYes.style.display = 'block';
       } else {
-        btn.textContent = 'Something went wrong – please try again';
-        btn.disabled = false;
+        successNo.style.display = 'block';
       }
     } catch {
       btn.textContent = 'Something went wrong – please try again';
