@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP – One Last Dip Before the Big Trip</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #faf6ef;
+      --orange:   #d4502a;
+      --teal:     #5aab9e;
+      --teal-lt:  #a8d5ce;
+      --dark:     #2c2c2c;
+      --mid:      #666;
+    }
+
+    body {
+      background: var(--teal-lt);
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(90,171,158,0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 10%, rgba(212,80,42,0.1) 0%, transparent 40%);
+      min-height: 100vh;
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 60px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--cream);
+      border: 3px solid var(--orange);
+      border-radius: 4px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* corner flourishes */
+    .card::before, .card::after {
+      content: '';
+      position: absolute;
+      width: 28px; height: 28px;
+      border: 3px solid var(--orange);
+      border-radius: 50%;
+      top: 8px;
+    }
+    .card::before { left: 8px; }
+    .card::after  { right: 8px; }
+
+    /* ── Pool banner ── */
+    .pool-banner {
+      position: relative;
+      overflow: hidden;
+      line-height: 0;
+      background: #c8eef7;
+    }
+    .pool-banner svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Header text ── */
+    .header {
+      text-align: center;
+      padding: 28px 32px 16px;
+      border-bottom: 1px solid rgba(212,80,42,0.2);
+    }
+
+    .date-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+
+    .tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      color: var(--orange);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .subhead {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .details {
+      margin-top: 12px;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dark);
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    /* ── Form ── */
+    .form-wrap {
+      padding: 28px 32px 36px;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+    .form-title span {
+      display: block;
+      width: 40px; height: 2px;
+      background: var(--orange);
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 3px;
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      color: var(--dark);
+      background: #fff;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* RSVP Yes/No toggle */
+    .rsvp-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .rsvp-toggle input[type="radio"] { display: none; }
+
+    .rsvp-toggle label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border: 1.5px solid #ddd;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .rsvp-toggle input[type="radio"]:checked + label {
+      border-color: var(--teal);
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .rsvp-toggle .decline input[type="radio"]:checked + label {
+      border-color: #c0392b;
+      background: #c0392b;
+    }
+
+    /* guest count — only shown when attending */
+    .guest-section { transition: opacity 0.3s; }
+    .guest-section.hidden { opacity: 0.3; pointer-events: none; }
+
+    /* submit */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover  { background: #b8401f; }
+    .btn-submit:active { transform: scale(0.99); }
+
+    /* ── Footer icons ── */
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 32px 28px;
+      font-size: 26px;
+      border-top: 1px solid rgba(212,80,42,0.15);
+      padding-top: 20px;
+    }
+
+    /* ── Success state ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 48px 32px;
+    }
+
+    .success-msg .icon { font-size: 52px; margin-bottom: 16px; }
+
+    .success-msg h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .success-msg p {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* ── Teal tile border (bottom) ── */
+    .tile-border {
+      height: 14px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--teal) 0px, var(--teal) 12px,
+        var(--teal-lt) 12px, var(--teal-lt) 14px
+      );
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .row-2 { grid-template-columns: 1fr; }
+      .tagline { font-size: 26px; }
+      .form-wrap { padding: 22px 20px 28px; }
+      .header { padding: 22px 20px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Pool illustration banner -->
+  <div class="pool-banner">
+    <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+      <!-- Sky gradient -->
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c8eef7"/>
+          <stop offset="100%" stop-color="#9dd9ec"/>
+        </linearGradient>
+        <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5dc3d8"/>
+          <stop offset="100%" stop-color="#3a9fb5"/>
+        </linearGradient>
+        <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7dc47a"/>
+          <stop offset="100%" stop-color="#5a9e57"/>
+        </linearGradient>
+        <linearGradient id="umbtop" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#d4502a"/>
+          <stop offset="16%"  stop-color="#d4502a"/>
+          <stop offset="16%"  stop-color="#faf6ef"/>
+          <stop offset="33%"  stop-color="#faf6ef"/>
+          <stop offset="33%"  stop-color="#d4502a"/>
+          <stop offset="50%"  stop-color="#d4502a"/>
+          <stop offset="50%"  stop-color="#faf6ef"/>
+          <stop offset="66%"  stop-color="#faf6ef"/>
+          <stop offset="66%"  stop-color="#d4502a"/>
+          <stop offset="83%"  stop-color="#d4502a"/>
+          <stop offset="83%"  stop-color="#faf6ef"/>
+          <stop offset="100%" stop-color="#faf6ef"/>
+        </linearGradient>
+        <!-- water shimmer lines -->
+        <pattern id="shimmer" patternUnits="userSpaceOnUse" width="40" height="12">
+          <path d="M0 6 Q10 3 20 6 Q30 9 40 6" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none"/>
+        </pattern>
+        <!-- tile pattern for pool edge -->
+        <pattern id="tile" patternUnits="userSpaceOnUse" width="14" height="14">
+          <rect width="14" height="14" fill="#5aab9e"/>
+          <rect x="1" y="1" width="11" height="11" fill="#7ec8d8" rx="1"/>
+        </pattern>
+      </defs>
+
+      <!-- Sky -->
+      <rect width="560" height="240" fill="url(#sky)"/>
+
+      <!-- Back hedge / treeline -->
+      <!-- Left tree cluster -->
+      <ellipse cx="70"  cy="88" rx="52" ry="38" fill="#5a9e57"/>
+      <ellipse cx="40"  cy="95" rx="38" ry="30" fill="#4e8f4b"/>
+      <ellipse cx="110" cy="92" rx="42" ry="32" fill="#6aaf67"/>
+      <!-- Right tree cluster -->
+      <ellipse cx="490" cy="88" rx="52" ry="38" fill="#5a9e57"/>
+      <ellipse cx="520" cy="95" rx="38" ry="30" fill="#4e8f4b"/>
+      <ellipse cx="450" cy="92" rx="42" ry="32" fill="#6aaf67"/>
+      <!-- Centre hedge -->
+      <ellipse cx="280" cy="96" rx="80" ry="28" fill="#5a9e57"/>
+      <ellipse cx="230" cy="98" rx="50" ry="22" fill="#4e8f4b"/>
+      <ellipse cx="330" cy="98" rx="50" ry="22" fill="#6aaf67"/>
+
+      <!-- Pool surround / deck (cream) -->
+      <rect x="60" y="120" width="440" height="100" rx="6" fill="#e8e0d0"/>
+
+      <!-- Pool water -->
+      <rect x="90" y="130" width="380" height="80" rx="4" fill="url(#pool)"/>
+      <!-- Pool tile border -->
+      <rect x="90" y="130" width="380" height="10" fill="url(#tile)"/>
+      <rect x="90" y="200" width="380" height="10" fill="url(#tile)"/>
+      <rect x="90" y="130" width="10"  height="80" fill="url(#tile)"/>
+      <rect x="460" y="130" width="10" height="80" fill="url(#tile)"/>
+      <!-- Water shimmer -->
+      <rect x="90" y="140" width="380" height="60" fill="url(#shimmer)"/>
+      <!-- Pool highlight -->
+      <ellipse cx="280" cy="160" rx="120" ry="18" fill="rgba(255,255,255,0.12)"/>
+
+      <!-- ── Globe beach ball ── -->
+      <circle cx="160" cy="172" r="26" fill="#1a6bb5"/>
+      <!-- continents (simplified blobs) -->
+      <ellipse cx="155" cy="162" rx="12" ry="9" fill="#4daf4a" transform="rotate(-10,155,162)"/>
+      <ellipse cx="168" cy="178" rx="8"  ry="6" fill="#4daf4a" transform="rotate(15,168,178)"/>
+      <ellipse cx="148" cy="178" rx="5"  ry="4" fill="#4daf4a"/>
+      <!-- latitude lines -->
+      <ellipse cx="160" cy="172" rx="26" ry="8"  fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <line x1="134" y1="172" x2="186" y2="172"  stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <line x1="160" y1="146" x2="160" y2="198"  stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <!-- Globe shine -->
+      <ellipse cx="153" cy="162" rx="7" ry="5" fill="rgba(255,255,255,0.22)" transform="rotate(-20,153,162)"/>
+
+      <!-- ── Side table (green) ── -->
+      <!-- Table top -->
+      <ellipse cx="340" cy="133" rx="30" ry="8" fill="#3a7d44"/>
+      <ellipse cx="340" cy="133" rx="30" ry="8" fill="none" stroke="#2d6235" stroke-width="1.5"/>
+      <!-- Table leg -->
+      <rect x="337" y="133" width="6" height="38" fill="#2d6235" rx="2"/>
+      <!-- Table base cross -->
+      <rect x="318" y="168" width="44" height="5" rx="2" fill="#2d6235"/>
+      <rect x="336" y="162" width="8"  height="14" rx="2" fill="#2d6235"/>
+
+      <!-- ── Champagne bucket ── -->
+      <!-- Bucket body -->
+      <rect x="323" y="110" width="18" height="22" rx="3" fill="#c0c0c0"/>
+      <rect x="323" y="110" width="18" height="22" rx="3" fill="none" stroke="#999" stroke-width="1"/>
+      <!-- Ice sheen -->
+      <rect x="325" y="112" width="6" height="4" rx="1" fill="rgba(255,255,255,0.5)"/>
+      <!-- Bottle neck -->
+      <rect x="329" y="95" width="6" height="20" rx="2" fill="#3a6632"/>
+      <!-- Bottle cork/top -->
+      <rect x="328" y="90" width="8" height="8" rx="2" fill="#c8a84b"/>
+      <!-- Handles -->
+      <path d="M323 114 Q317 118 323 122" stroke="#aaa" stroke-width="1.5" fill="none"/>
+      <path d="M341 114 Q347 118 341 122" stroke="#aaa" stroke-width="1.5" fill="none"/>
+
+      <!-- ── Two champagne glasses ── -->
+      <!-- Glass 1 -->
+      <path d="M355 113 L349 125 L363 125 Z" fill="rgba(200,235,245,0.7)" stroke="#bbb" stroke-width="0.8"/>
+      <rect x="355" y="125" width="2" height="10" fill="#ccc"/>
+      <rect x="351" y="134" width="10" height="2" rx="1" fill="#bbb"/>
+      <!-- Fizz dots -->
+      <circle cx="355" cy="120" r="1"   fill="rgba(255,255,255,0.7)"/>
+      <circle cx="358" cy="117" r="0.8" fill="rgba(255,255,255,0.6)"/>
+      <!-- Glass 2 -->
+      <path d="M370 113 L364 125 L378 125 Z" fill="rgba(200,235,245,0.7)" stroke="#bbb" stroke-width="0.8"/>
+      <rect x="370" y="125" width="2" height="10" fill="#ccc"/>
+      <rect x="366" y="134" width="10" height="2" rx="1" fill="#bbb"/>
+      <!-- Fizz dots -->
+      <circle cx="370" cy="120" r="1"   fill="rgba(255,255,255,0.7)"/>
+      <circle cx="373" cy="117" r="0.8" fill="rgba(255,255,255,0.6)"/>
+
+      <!-- ── Fruit bowl ── -->
+      <ellipse cx="310" cy="131" rx="14" ry="5" fill="#d4a843"/>
+      <!-- Pineapple -->
+      <ellipse cx="307" cy="124" rx="5" ry="7" fill="#f0c040"/>
+      <path d="M302 118 Q307 112 312 118" fill="#4a8a3a" stroke="none"/>
+      <!-- Apple/orange -->
+      <circle cx="315" cy="126" r="4" fill="#e06030"/>
+      <!-- Banana curve -->
+      <path d="M305 128 Q308 122 313 126" stroke="#f0d050" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+      <!-- ── Umbrella pole ── -->
+      <rect x="278" y="68" width="4" height="80" fill="#8B6914" rx="1"/>
+
+      <!-- ── Umbrella canopy ── -->
+      <!-- Main dome shape -->
+      <path d="M220 92 Q220 55 280 52 Q340 55 340 92 Z" fill="url(#umbtop)"/>
+      <!-- Underside shade -->
+      <path d="M220 92 Q220 84 280 82 Q340 84 340 92 Z" fill="rgba(0,0,0,0.08)"/>
+      <!-- Rib lines -->
+      <line x1="280" y1="52" x2="220" y2="92" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <line x1="280" y1="52" x2="250" y2="90" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <line x1="280" y1="52" x2="280" y2="92" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <line x1="280" y1="52" x2="310" y2="90" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <line x1="280" y1="52" x2="340" y2="92" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <!-- Fringe scallops -->
+      <path d="M220 92 Q228 100 236 92 Q244 100 252 92 Q260 100 268 92 Q276 100 284 92 Q292 100 300 92 Q308 100 316 92 Q324 100 332 92 Q340 100 340 92"
+            fill="#d4502a" stroke="#b83d1e" stroke-width="0.5"/>
+      <!-- Top finial -->
+      <circle cx="280" cy="51" r="4" fill="#8B6914"/>
+
+      <!-- ── Cream wave at bottom ── -->
+      <path d="M0 210 Q70 195 140 210 Q210 225 280 210 Q350 195 420 210 Q490 225 560 210 L560 240 L0 240 Z" fill="#faf6ef"/>
+
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="date-badge">June 20th, 2025</div>
+    <div class="tagline">One last dip before<br>the big trip</div>
+    <p class="subhead">
+      Join us for a family friendly pool party<br>
+      before we set off on our travels for a year.
+    </p>
+    <div class="details">
+      46 Will Tremper Drive<br>
+      From 3 p.m. onwards
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-wrap" id="formSection">
+    <div class="form-title">
+      Will you be joining us?
+      <span></span>
+    </div>
+
+    <!--
+      ╔══════════════════════════════════════════════════════════╗
+      ║  SETUP INSTRUCTIONS                                      ║
+      ║  1. Go to https://formspree.io and create a free account ║
+      ║  2. Click "New Form", name it "Pool Party RSVP"          ║
+      ║  3. Copy your form endpoint (looks like:                 ║
+      ║     https://formspree.io/f/xyzabcde)                     ║
+      ║  4. Replace YOUR_FORMSPREE_ID below with that endpoint   ║
+      ╚══════════════════════════════════════════════════════════╝
+    -->
+    <form
+      id="rsvpForm"
+      action="https://formspree.io/f/xnjlqrnk"
+      method="POST"
+    >
+
+      <!-- Attending? -->
+      <div class="field">
+        <label>Are you coming?</label>
+        <div class="rsvp-toggle">
+          <div>
+            <input type="radio" name="attending" id="yes" value="Yes – can't wait!" required />
+            <label for="yes">🎉 Yes!</label>
+          </div>
+          <div class="decline">
+            <input type="radio" name="attending" id="no" value="No – sorry to miss it" />
+            <label for="no">😢 Can't make it</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="Jane & John Smith" required />
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+      </div>
+
+      <!-- Guest counts — hidden/faded when declining -->
+      <div class="guest-section" id="guestSection">
+        <div class="row-2">
+          <div class="field">
+            <label for="adults">Adults</label>
+            <input type="number" id="adults" name="adults" min="0" max="20" value="1" placeholder="0" />
+          </div>
+          <div class="field">
+            <label for="kids">Children</label>
+            <input type="number" id="kids" name="kids" min="0" max="20" value="0" placeholder="0" />
+          </div>
+        </div>
+
+        <!-- Dietary -->
+        <div class="field">
+          <label for="dietary">Dietary requirements</label>
+          <select id="dietary" name="dietary">
+            <option value="None">None</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Vegan">Vegan</option>
+            <option value="Gluten free">Gluten free</option>
+            <option value="Other (see message)">Other – I'll add a note below</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="field">
+        <label for="message">Anything else? (optional)</label>
+        <textarea id="message" name="message" placeholder="Allergies, a nice message, questions…"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Send my RSVP →</button>
+
+    </form>
+
+    <!-- Success message (shown after submit) -->
+    <div class="success-msg" id="successMsg">
+      <div class="icon">🏊</div>
+      <h2>See you at the pool!</h2>
+      <p>
+        Thanks — we've got your RSVP.<br>
+        We can't wait to celebrate before the adventure begins!
+      </p>
+    </div>
+  </div>
+
+  <!-- Tile border -->
+  <div class="tile-border"></div>
+
+  <!-- Footer icons -->
+  <div class="footer-icons">
+    🍔 &nbsp; 🍦 &nbsp; 🥂 &nbsp; 🕶️ &nbsp; 🌍
+  </div>
+
+</div><!-- /card -->
+
+<script>
+  // Toggle guest section opacity based on attending choice
+  const yesRadio  = document.getElementById('yes');
+  const noRadio   = document.getElementById('no');
+  const guestSec  = document.getElementById('guestSection');
+
+  function updateGuestSection() {
+    if (noRadio.checked) {
+      guestSec.classList.add('hidden');
+    } else {
+      guestSec.classList.remove('hidden');
+    }
+  }
+
+  yesRadio.addEventListener('change', updateGuestSection);
+  noRadio.addEventListener('change', updateGuestSection);
+
+  // Handle form submission with fetch (keeps user on page)
+  const form       = document.getElementById('rsvpForm');
+  const successMsg = document.getElementById('successMsg');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method:  'POST',
+        body:    new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        btn.textContent = 'Something went wrong – please try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Something went wrong – please try again';
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
