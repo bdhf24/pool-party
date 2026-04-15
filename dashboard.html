@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP Dashboard – Pool Party</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Dancing+Script:wght@600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #faf6ef;
+      --orange:  #d4502a;
+      --teal:    #5aab9e;
+      --teal-lt: #a8d5ce;
+      --dark:    #2c2c2c;
+      --mid:     #666;
+      --green:   #3a7d44;
+      --red:     #c0392b;
+    }
+
+    body {
+      background: #f0f4f3;
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      min-height: 100vh;
+      padding: 32px 16px 60px;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      max-width: 960px;
+      margin: 0 auto 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .topbar-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: var(--orange);
+    }
+
+    .topbar-meta {
+      font-size: 12px;
+      color: var(--mid);
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 3px;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: #b8401f; }
+    .btn-secondary { background: #e0dbd0; color: var(--dark); }
+    .btn-secondary:hover { background: #d0cbc0; }
+
+    /* ── Setup screen ── */
+    #setupScreen {
+      max-width: 520px;
+      margin: 60px auto;
+      background: white;
+      border: 2px solid var(--orange);
+      border-radius: 4px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    #setupScreen h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    #setupScreen p {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    #setupScreen input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 3px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    #setupScreen input:focus { outline: none; border-color: var(--teal); }
+
+    /* ── Stat cards ── */
+    .stats {
+      max-width: 960px;
+      margin: 0 auto 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 6px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border-top: 3px solid transparent;
+    }
+
+    .stat-card.orange { border-top-color: var(--orange); }
+    .stat-card.teal   { border-top-color: var(--teal); }
+    .stat-card.green  { border-top-color: var(--green); }
+    .stat-card.red    { border-top-color: var(--red); }
+    .stat-card.gold   { border-top-color: #c8a84b; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ── Dietary breakdown ── */
+    .dietary-bar {
+      max-width: 960px;
+      margin: 0 auto 28px;
+      background: white;
+      border-radius: 6px;
+      padding: 18px 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .dietary-bar-title {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .diet-pill {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      background: #f0ede6;
+      color: var(--dark);
+    }
+
+    .diet-pill.highlight { background: var(--teal); color: white; }
+
+    /* ── Controls ── */
+    .controls {
+      max-width: 960px;
+      margin: 0 auto 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      border: 1.5px solid #ddd;
+      background: white;
+      color: var(--mid);
+      transition: all 0.15s;
+    }
+
+    .filter-btn.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead tr {
+      background: var(--cream);
+      border-bottom: 2px solid #e8e0d0;
+    }
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0ede6;
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: #faf8f4; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-yes { background: #e6f4ea; color: #2e7d32; }
+    .badge-no  { background: #fdecea; color: #c62828; }
+
+    .diet-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: #f0ede6;
+      color: var(--mid);
+    }
+
+    .diet-tag.special { background: #fff3cd; color: #856404; }
+
+    /* ── Empty / loading states ── */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--mid);
+    }
+
+    .empty-icon { font-size: 40px; margin-bottom: 12px; }
+
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--mid);
+      font-size: 14px;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 24px; height: 24px;
+      border: 3px solid #e0dbd0;
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      th:nth-child(3), td:nth-child(3),
+      th:nth-child(7), td:nth-child(7) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Setup screen (shown until URL is saved) ── -->
+<div id="setupScreen" style="display:none">
+  <div style="font-size:36px; margin-bottom:12px">🏊</div>
+  <h2>Connect your Google Sheet</h2>
+  <p>
+    Paste your Apps Script Web App URL below.<br>
+    You only need to do this once — it's saved in your browser.
+  </p>
+  <input type="url" id="urlInput" placeholder="https://script.google.com/macros/s/…/exec" />
+  <button class="btn btn-primary" onclick="saveUrl()" style="width:100%">Save &amp; Load RSVPs →</button>
+</div>
+
+<!-- ── Main dashboard ── -->
+<div id="dashboard" style="display:none">
+
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">One last dip before the big trip 🌍</div>
+      <div class="topbar-meta">RSVP Dashboard · June 20th · 46 Will Tremper Drive</div>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center">
+      <span id="lastUpdated" class="topbar-meta"></span>
+      <button class="btn btn-secondary" onclick="loadData()">↻ Refresh</button>
+      <button class="btn btn-secondary" onclick="resetUrl()" title="Change Apps Script URL">⚙</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats" id="stats"></div>
+
+  <!-- Dietary bar -->
+  <div class="dietary-bar" id="dietaryBar" style="display:none">
+    <span class="dietary-bar-title">🥗 Dietary</span>
+    <div id="dietaryPills"></div>
+  </div>
+
+  <!-- Filter controls -->
+  <div class="controls">
+    <button class="filter-btn active" data-filter="all"     onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn"        data-filter="yes"     onclick="setFilter('yes',this)">Coming</button>
+    <button class="filter-btn"        data-filter="no"      onclick="setFilter('no',this)">Can't make it</button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <div id="loadingState" class="loading">
+      <div class="spinner"></div><br>Loading RSVPs…
+    </div>
+    <div id="emptyState" class="empty" style="display:none">
+      <div class="empty-icon">📬</div>
+      <p>No RSVPs yet — share your link and check back soon!</p>
+    </div>
+    <table id="rsvpTable" style="display:none">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Attending</th>
+          <th>Email</th>
+          <th>Adults</th>
+          <th>Kids</th>
+          <th>Dietary</th>
+          <th>Message</th>
+          <th>When</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div><!-- /dashboard -->
+
+<script>
+  var allRows   = [];
+  var activeFilter = 'all';
+
+  // ── URL management ──────────────────────────────────────────────
+  function getUrl() { return localStorage.getItem('rsvp_apps_script_url') || ''; }
+
+  function saveUrl() {
+    var url = document.getElementById('urlInput').value.trim();
+    if (!url.startsWith('https://script.google.com')) {
+      alert('That doesn\'t look like an Apps Script URL. It should start with https://script.google.com/macros/s/');
+      return;
+    }
+    localStorage.setItem('rsvp_apps_script_url', url);
+    showDashboard();
+  }
+
+  function resetUrl() {
+    if (confirm('Change the Apps Script URL?')) {
+      localStorage.removeItem('rsvp_apps_script_url');
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('setupScreen').style.display = 'block';
+    }
+  }
+
+  // ── Init ────────────────────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', function() {
+    if (getUrl()) {
+      showDashboard();
+    } else {
+      document.getElementById('setupScreen').style.display = 'block';
+    }
+  });
+
+  function showDashboard() {
+    document.getElementById('setupScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display   = 'block';
+    loadData();
+  }
+
+  // ── Fetch data ──────────────────────────────────────────────────
+  function loadData() {
+    document.getElementById('loadingState').style.display = 'block';
+    document.getElementById('rsvpTable').style.display    = 'none';
+    document.getElementById('emptyState').style.display   = 'none';
+
+    fetch(getUrl())
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        allRows = data.rows || [];
+        document.getElementById('lastUpdated').textContent =
+          'Updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        renderStats();
+        renderDietary();
+        renderTable();
+      })
+      .catch(function(err) {
+        document.getElementById('loadingState').innerHTML =
+          '<p style="color:#c62828">Could not load data. Check your Apps Script URL is deployed correctly.</p>';
+        console.error(err);
+      });
+  }
+
+  // ── Stats ───────────────────────────────────────────────────────
+  function renderStats() {
+    var attending = allRows.filter(function(r) { return isYes(r); });
+    var declining = allRows.filter(function(r) { return !isYes(r) && r.Attending; });
+    var adults    = attending.reduce(function(s, r) { return s + (parseInt(r.Adults) || 0); }, 0);
+    var kids      = attending.reduce(function(s, r) { return s + (parseInt(r.Kids)   || 0); }, 0);
+
+    document.getElementById('stats').innerHTML = [
+      stat(allRows.length, 'Total RSVPs',   'orange'),
+      stat(attending.length,'Coming 🎉',    'green'),
+      stat(declining.length,'Can\'t make it','red'),
+      stat(adults,          'Adults',        'teal'),
+      stat(kids,            'Children',      'teal'),
+      stat(adults + kids,   'Total guests',  'gold'),
+    ].join('');
+  }
+
+  function stat(n, label, colour) {
+    return '<div class="stat-card ' + colour + '">' +
+      '<div class="stat-num">' + n + '</div>' +
+      '<div class="stat-label">' + label + '</div>' +
+      '</div>';
+  }
+
+  // ── Dietary breakdown ───────────────────────────────────────────
+  function renderDietary() {
+    var attending = allRows.filter(function(r) { return isYes(r); });
+    var counts = {};
+    attending.forEach(function(r) {
+      var d = r.Dietary || 'None';
+      counts[d] = (counts[d] || 0) + 1;
+    });
+
+    var hasSpecial = Object.keys(counts).some(function(k) { return k !== 'None'; });
+    if (!hasSpecial) {
+      document.getElementById('dietaryBar').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('dietaryBar').style.display = 'flex';
+    var pills = Object.entries(counts).map(function(entry) {
+      var key = entry[0], val = entry[1];
+      var cls = key === 'None' ? '' : ' highlight';
+      return '<span class="diet-pill' + cls + '">' + key + ' × ' + val + '</span>';
+    }).join(' ');
+    document.getElementById('dietaryPills').innerHTML = pills;
+  }
+
+  // ── Table ───────────────────────────────────────────────────────
+  function setFilter(f, el) {
+    activeFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    el.classList.add('active');
+    renderTable();
+  }
+
+  function renderTable() {
+    document.getElementById('loadingState').style.display = 'none';
+
+    var rows = allRows.filter(function(r) {
+      if (activeFilter === 'yes') return isYes(r);
+      if (activeFilter === 'no')  return !isYes(r);
+      return true;
+    });
+
+    if (rows.length === 0) {
+      document.getElementById('emptyState').style.display = 'block';
+      document.getElementById('rsvpTable').style.display  = 'none';
+      return;
+    }
+
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('rsvpTable').style.display  = 'table';
+
+    var html = rows.map(function(r) {
+      var yes    = isYes(r);
+      var badge  = yes
+        ? '<span class="badge badge-yes">Coming</span>'
+        : '<span class="badge badge-no">Declined</span>';
+      var diet   = r.Dietary && r.Dietary !== 'None'
+        ? '<span class="diet-tag special">' + esc(r.Dietary) + '</span>'
+        : '<span class="diet-tag">None</span>';
+      var msg    = r.Message ? '<span title="' + esc(r.Message) + '">💬</span>' : '—';
+
+      return '<tr>' +
+        '<td><strong>' + esc(r.Name || '—') + '</strong></td>' +
+        '<td>' + badge + '</td>' +
+        '<td style="color:var(--mid);font-size:13px">' + esc(r.Email || '—') + '</td>' +
+        '<td style="text-align:center">' + (yes ? (r.Adults || 0) : '—') + '</td>' +
+        '<td style="text-align:center">' + (yes ? (r.Kids   || 0) : '—') + '</td>' +
+        '<td>' + diet + '</td>' +
+        '<td style="text-align:center">' + msg + '</td>' +
+        '<td style="color:var(--mid);font-size:12px">' + esc(r.Timestamp || '') + '</td>' +
+        '</tr>';
+    }).join('');
+
+    document.getElementById('tableBody').innerHTML = html;
+  }
+
+  // ── Helpers ─────────────────────────────────────────────────────
+  function isYes(r) {
+    return (r.Attending || '').toLowerCase().indexOf('yes') !== -1 ||
+           (r.Attending || '').toLowerCase().indexOf('can') !== -1 &&
+           (r.Attending || '').toLowerCase().indexOf('can\'t') === -1;
+  }
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+</script>
+
+</body>
+</html>
