@@ -486,8 +486,9 @@
         body:   new FormData(form),
         mode:   'no-cors'
       });
-      form.style.display                             = 'none';
-      document.querySelector('.header').style.display = 'none';
+      form.style.display                                  = 'none';
+      document.querySelector('.header').style.display    = 'none';
+      document.querySelector('.form-title').style.display = 'none';
       (isYes ? successYes : successNo).style.display = 'block';
     } catch {
       btn.textContent = 'Something went wrong — please try again';
