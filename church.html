@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP · Christ Church Spitalfields · July 4th 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #f7f2e9;
+      --stone:    #e2d9c4;
+      --warm:     #5c4a2a;
+      --sage:     #6b8f5e;
+      --sage-lt:  #a8c49a;
+      --sky:      #c8dfe8;
+      --gold:     #b8943a;
+      --mid:      #7a6a56;
+      --dark:     #2e2416;
+    }
+
+    body {
+      background: #dce8ed;
+      background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(200,223,232,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(168,196,154,0.3) 0%, transparent 50%);
+      min-height: 100vh;
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 60px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--cream);
+      max-width: 540px;
+      width: 100%;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Outer border frame */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(184,148,58,0.35);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ── Church illustration ── */
+    .church-banner {
+      position: relative;
+      line-height: 0;
+    }
+
+    .church-banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 32px 40px 24px;
+      border-bottom: 1px solid rgba(184,148,58,0.25);
+      position: relative;
+    }
+
+    .header::after {
+      content: '✦  ✦  ✦';
+      display: block;
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--gold);
+      margin-top: 18px;
+    }
+
+    .date-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .headline em {
+      font-style: italic;
+      color: var(--warm);
+    }
+
+    .subtext {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .details {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--dark);
+      line-height: 2;
+    }
+
+    /* ── Form ── */
+    .form-wrap {
+      padding: 28px 36px 40px;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      text-align: center;
+      color: var(--dark);
+      margin-bottom: 22px;
+    }
+
+    .form-title::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      margin: 10px auto 0;
+    }
+
+    .field { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d4c9b0;
+      border-radius: 2px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--dark);
+      background: #fff;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    textarea { resize: vertical; min-height: 80px; }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* RSVP toggle */
+    .rsvp-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .rsvp-toggle input[type="radio"] { display: none; }
+
+    .rsvp-toggle label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border: 1px solid #d4c9b0;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-style: italic;
+      letter-spacing: 0.5px;
+      color: var(--mid);
+      transition: all 0.2s;
+    }
+
+    .rsvp-toggle input[type="radio"]:checked + label {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .rsvp-toggle .decline input[type="radio"]:checked + label {
+      border-color: var(--mid);
+      background: var(--mid);
+    }
+
+    .guest-section { transition: opacity 0.3s; }
+    .guest-section.hidden { opacity: 0.3; pointer-events: none; }
+
+    /* Submit */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-style: italic;
+      letter-spacing: 3px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-top: 22px;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover { background: var(--warm); }
+
+    /* ── Gold rule footer ── */
+    .gold-rule {
+      height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%, var(--gold) 20%, var(--stone) 50%, var(--gold) 80%, transparent 100%);
+      margin: 0 36px;
+    }
+
+    .footer-text {
+      text-align: center;
+      padding: 16px 36px 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--mid);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Success states ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 52px 36px;
+    }
+
+    .success-msg .success-icon { font-size: 40px; margin-bottom: 18px; }
+
+    .success-msg h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-style: italic;
+      color: var(--warm);
+      margin-bottom: 12px;
+    }
+
+    .success-msg p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    .success-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 14px auto;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-msg > * { animation: fadeUp 0.5s ease both; }
+    .success-msg > *:nth-child(2) { animation-delay: 0.1s; }
+    .success-msg > *:nth-child(3) { animation-delay: 0.2s; }
+    .success-msg > *:nth-child(4) { animation-delay: 0.3s; }
+    .success-msg > *:nth-child(5) { animation-delay: 0.4s; }
+
+    @media (max-width: 480px) {
+      .form-wrap { padding: 22px 22px 32px; }
+      .header { padding: 24px 22px 20px; }
+      .headline { font-size: 24px; }
+      .row-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Church illustration -->
+  <div class="church-banner">
+    <img src="Christchurch 1.png" alt="Christ Church Spitalfields" />
+
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="date-line">July 4th, 2026 &nbsp;·&nbsp; 2 – 5pm</div>
+    <h1 class="headline">
+      You are warmly invited to<br>
+      <em>Christ Church Spitalfields</em>
+    </h1>
+    <p class="subtext">
+      A celebration of Sasha and Leo,<br>
+      their godparents, and ten years of marriage
+    </p>
+    <div class="details">
+      Commercial Street, London E1 6LY<br>
+      Short service followed by reception
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-wrap" id="formSection">
+    <div class="form-title">Kindly reply</div>
+
+    <form id="rsvpForm" method="POST"
+          data-endpoint="https://script.google.com/macros/s/AKfycbwzE3WR3mjVemJLW3TYTPm56EJPuzROmCPlHA_vUuQb7NaD6SDcaG_Nangs1w2nxARV/exec">
+
+      <!-- Attending? -->
+      <div class="field">
+        <label>Will you be joining us?</label>
+        <div class="rsvp-toggle">
+          <div>
+            <input type="radio" name="attending" id="yes" value="Yes – delighted to attend" required />
+            <label for="yes">Joyfully accepts</label>
+          </div>
+          <div class="decline">
+            <input type="radio" name="attending" id="no" value="No – regretfully declines" />
+            <label for="no">Regretfully declines</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="field">
+        <label for="name">Name(s)</label>
+        <input type="text" id="name" name="name" placeholder="Jane & John Smith" required />
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+      </div>
+
+      <!-- Guest counts -->
+      <div class="guest-section" id="guestSection">
+        <div class="row-2">
+          <div class="field">
+            <label for="adults">Adults</label>
+            <input type="number" id="adults" name="adults" min="0" max="20" value="1" />
+          </div>
+          <div class="field">
+            <label for="kids">Children</label>
+            <input type="number" id="kids" name="kids" min="0" max="20" value="0" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="dietary">Dietary requirements</label>
+          <select id="dietary" name="dietary">
+            <option value="None">None</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Vegan">Vegan</option>
+            <option value="Gluten free">Gluten free</option>
+            <option value="Other (see message)">Other – I'll add a note below</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="field">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" placeholder="Any notes, well wishes…"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Send Reply</button>
+    </form>
+
+    <!-- Success: attending -->
+    <div class="success-msg" id="successYes">
+      <div class="success-icon">⛪</div>
+      <h2>We look forward to seeing you</h2>
+      <div class="success-divider"></div>
+      <p>
+        Thank you — your reply has been received.<br>
+        We are so glad you can join us on July 4th.
+      </p>
+    </div>
+
+    <!-- Success: declining -->
+    <div class="success-msg" id="successNo">
+      <div class="success-icon">💐</div>
+      <h2>We will miss you</h2>
+      <div class="success-divider"></div>
+      <p>
+        Thank you for letting us know.<br>
+        We hope to see you before we celebrate.
+      </p>
+    </div>
+  </div>
+
+  <!-- Gold rule & footer -->
+  <div class="gold-rule"></div>
+  <div class="footer-text">
+    Christ Church Spitalfields · Commercial St, London E1 6LY
+  </div>
+
+</div><!-- /card -->
+
+<script>
+  const yesRadio = document.getElementById('yes');
+  const noRadio  = document.getElementById('no');
+  const guestSec = document.getElementById('guestSection');
+
+  function updateGuestSection() {
+    guestSec.classList.toggle('hidden', noRadio.checked);
+  }
+
+  yesRadio.addEventListener('change', updateGuestSection);
+  noRadio.addEventListener('change',  updateGuestSection);
+
+  const form       = document.getElementById('rsvpForm');
+  const successYes = document.getElementById('successYes');
+  const successNo  = document.getElementById('successNo');
+  const ENDPOINT   = form.dataset.endpoint;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn      = form.querySelector('.btn-submit');
+    const attended = form.querySelector('input[name="attending"]:checked');
+    const isYes    = attended && attended.value.toLowerCase().includes('yes');
+
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      await fetch(ENDPOINT, {
+        method: 'POST',
+        body:   new FormData(form),
+        mode:   'no-cors'
+      });
+      form.style.display   = 'none';
+      (isYes ? successYes : successNo).style.display = 'block';
+    } catch {
+      btn.textContent = 'Something went wrong — please try again';
+      btn.disabled    = false;
+    }
+  });
+</script>
+
+</body>
+</html>
