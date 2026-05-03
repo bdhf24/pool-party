@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caroline's Birthday Yoga · May 24th 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #fdf7ee;
+      --stone:   #e8dfc8;
+      --sage:    #5a8a5e;
+      --sage-lt: #a8c49a;
+      --peach:   #e8825a;
+      --gold:    #c9873a;
+      --sunrise: #f0b060;
+      --lavender:#c4b8d8;
+      --mid:     #6a7a58;
+      --dark:    #2a3820;
+      --warm:    #7a3820;
+    }
+
+    body {
+      background: #c8d8b8;
+      background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(240,176,96,0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 85%, rgba(168,196,154,0.5) 0%, transparent 55%);
+      min-height: 100vh;
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 60px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--cream);
+      max-width: 540px;
+      width: 100%;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(201,135,58,0.3);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ── Banner SVG ── */
+    .yoga-banner {
+      position: relative;
+      line-height: 0;
+      background: linear-gradient(180deg, #f5c878 0%, #f0a060 30%, #d4b8e0 65%, #a8c49a 100%);
+    }
+
+    .yoga-banner svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 28px 40px 20px;
+      border-bottom: 1px solid rgba(201,135,58,0.2);
+      position: relative;
+    }
+
+    .header::after {
+      content: '✿  ✦  ✿';
+      display: block;
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--gold);
+      margin-top: 16px;
+    }
+
+    .date-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .headline span {
+      color: var(--sage);
+    }
+
+    .sub-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--peach);
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtext {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .details {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dark);
+      line-height: 2;
+    }
+
+    .kids-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 14px;
+      background: var(--sage-lt);
+      color: var(--dark);
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 20px;
+    }
+
+    /* ── Form ── */
+    .form-wrap {
+      padding: 28px 36px 40px;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      text-align: center;
+      color: var(--dark);
+      margin-bottom: 22px;
+    }
+
+    .form-title::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      margin: 10px auto 0;
+    }
+
+    .field { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d4c9a8;
+      border-radius: 2px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--dark);
+      background: #fff;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    textarea { resize: vertical; min-height: 80px; }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* RSVP toggle */
+    .rsvp-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .rsvp-toggle input[type="radio"] { display: none; }
+
+    .rsvp-toggle label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border: 1px solid #d4c9a8;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-style: italic;
+      letter-spacing: 0.5px;
+      color: var(--mid);
+      transition: all 0.2s;
+    }
+
+    .rsvp-toggle input[type="radio"]:checked + label {
+      border-color: var(--sage);
+      background: var(--sage);
+      color: #fff;
+    }
+
+    .rsvp-toggle .decline input[type="radio"]:checked + label {
+      border-color: var(--mid);
+      background: var(--mid);
+    }
+
+    .guest-section { transition: opacity 0.3s; }
+    .guest-section.hidden { opacity: 0.3; pointer-events: none; }
+
+    /* Submit */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--sage);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-style: italic;
+      letter-spacing: 3px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-top: 22px;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover { background: var(--dark); }
+
+    /* ── Divider ── */
+    .sage-rule {
+      height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%, var(--sage) 20%, var(--sage-lt) 50%, var(--sage) 80%, transparent 100%);
+      margin: 0 36px;
+    }
+
+    .footer-text {
+      text-align: center;
+      padding: 14px 36px 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--mid);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Travel note ── */
+    .travel-note {
+      text-align: center;
+      padding: 14px 36px 28px;
+      border-top: 1px solid rgba(90,138,94,0.2);
+      margin: 0 36px;
+    }
+
+    .travel-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .travel-note p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .travel-note a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── Success ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 52px 36px;
+    }
+
+    .success-msg .success-icon { font-size: 44px; margin-bottom: 18px; }
+
+    .success-msg h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-style: italic;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+
+    .success-msg p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    .success-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 14px auto;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-msg > * { animation: fadeUp 0.5s ease both; }
+    .success-msg > *:nth-child(2) { animation-delay: 0.1s; }
+    .success-msg > *:nth-child(3) { animation-delay: 0.2s; }
+    .success-msg > *:nth-child(4) { animation-delay: 0.3s; }
+
+    @media (max-width: 480px) {
+      .form-wrap { padding: 22px 22px 32px; }
+      .header { padding: 22px 22px 18px; }
+      .headline { font-size: 26px; }
+      .row-2 { grid-template-columns: 1fr; }
+      .travel-note { margin: 0 22px; }
+      .sage-rule { margin: 0 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Banner illustration -->
+  <div class="yoga-banner">
+    <svg viewBox="0 0 540 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Sky gradient: sunrise -->
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#f5c060"/>
+          <stop offset="40%"  stop-color="#f0a878"/>
+          <stop offset="75%"  stop-color="#d4b8e0"/>
+          <stop offset="100%" stop-color="#b8cce8"/>
+        </linearGradient>
+        <!-- Hill gradient -->
+        <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7aad78"/>
+          <stop offset="100%" stop-color="#4a7a50"/>
+        </linearGradient>
+        <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a9858"/>
+          <stop offset="100%" stop-color="#3a6840"/>
+        </linearGradient>
+        <linearGradient id="sunGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+          <stop offset="0%"   stop-color="#fff8c0" stop-opacity="0.9"/>
+          <stop offset="60%"  stop-color="#f5c060" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f5c060" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="sunGlowR" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#fff8d0" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#f5b040" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="blur2">
+          <feGaussianBlur stdDeviation="2"/>
+        </filter>
+      </defs>
+
+      <!-- Sky -->
+      <rect width="540" height="300" fill="url(#sky)"/>
+
+      <!-- Sun glow -->
+      <ellipse cx="272" cy="148" rx="80" ry="70" fill="url(#sunGlowR)" filter="url(#blur2)"/>
+
+      <!-- Sun -->
+      <circle cx="272" cy="148" r="26" fill="#ffe080" opacity="0.92"/>
+      <circle cx="272" cy="148" r="20" fill="#fff0a0"/>
+
+      <!-- Sun rays -->
+      <g stroke="#f5c060" stroke-width="1.5" opacity="0.6">
+        <line x1="272" y1="112" x2="272" y2="102"/>
+        <line x1="272" y1="184" x2="272" y2="194"/>
+        <line x1="236" y1="148" x2="226" y2="148"/>
+        <line x1="308" y1="148" x2="318" y2="148"/>
+        <line x1="247" y1="123" x2="240" y2="116"/>
+        <line x1="297" y1="173" x2="304" y2="180"/>
+        <line x1="297" y1="123" x2="304" y2="116"/>
+        <line x1="247" y1="173" x2="240" y2="180"/>
+      </g>
+
+      <!-- Far hill (light) -->
+      <ellipse cx="270" cy="265" rx="340" ry="90" fill="#a8c898" opacity="0.6"/>
+
+      <!-- Back hills -->
+      <path d="M0 240 Q80 190 180 210 Q260 185 360 205 Q440 185 540 215 L540 300 L0 300 Z" fill="url(#hill1)"/>
+
+      <!-- Front hill -->
+      <path d="M0 265 Q100 230 220 250 Q300 238 400 252 Q470 242 540 255 L540 300 L0 300 Z" fill="url(#hill2)"/>
+
+      <!-- Tree left (Hudson Valley-style) -->
+      <rect x="68" y="190" width="6" height="50" rx="2" fill="#3a5a28"/>
+      <ellipse cx="71" cy="188" rx="22" ry="28" fill="#4a7a38"/>
+      <ellipse cx="65" cy="196" rx="14" ry="18" fill="#5a8a48"/>
+      <ellipse cx="77" cy="196" rx="12" ry="16" fill="#3a6a30"/>
+
+      <!-- Tree right -->
+      <rect x="450" y="195" width="6" height="45" rx="2" fill="#3a5a28"/>
+      <ellipse cx="453" cy="193" rx="20" ry="26" fill="#4a7a38"/>
+      <ellipse cx="447" cy="200" rx="13" ry="17" fill="#5a8a48"/>
+      <ellipse cx="459" cy="200" rx="11" ry="15" fill="#3a6a30"/>
+
+      <!-- Small tree far right -->
+      <rect x="498" y="208" width="4" height="34" rx="1" fill="#3a5a28"/>
+      <ellipse cx="500" cy="206" rx="14" ry="18" fill="#4a7a38"/>
+
+      <!-- Yoga mat on ground -->
+      <rect x="198" y="252" width="144" height="10" rx="5" fill="#e87060" opacity="0.85"/>
+      <rect x="202" y="254" width="136" height="6" rx="3" fill="#f09080" opacity="0.5"/>
+
+      <!-- ─── Caroline on the mat ─── -->
+      <!-- Warrior II pose: arms wide, legs apart, strong and confident -->
+      <!-- Back leg -->
+      <line x1="254" y1="240" x2="224" y2="255" stroke="#c87050" stroke-width="6" stroke-linecap="round"/>
+      <!-- Front leg -->
+      <line x1="254" y1="240" x2="290" y2="255" stroke="#c87050" stroke-width="6" stroke-linecap="round"/>
+      <!-- Torso -->
+      <line x1="254" y1="240" x2="260" y2="210" stroke="#e87870" stroke-width="6" stroke-linecap="round"/>
+      <!-- Left arm (back, extended) -->
+      <line x1="260" y1="218" x2="228" y2="214" stroke="#e87870" stroke-width="5" stroke-linecap="round"/>
+      <!-- Right arm (front, extended) -->
+      <line x1="260" y1="218" x2="294" y2="218" stroke="#e87870" stroke-width="5" stroke-linecap="round"/>
+      <!-- Head -->
+      <circle cx="262" cy="204" r="10" fill="#f5c8a0"/>
+      <!-- Hair (fun updo) -->
+      <ellipse cx="262" cy="196" rx="9" ry="6" fill="#c8a060"/>
+      <circle cx="268" cy="193" r="4" fill="#d4a858"/>
+      <!-- Sunglasses -->
+      <rect x="257" y="201" width="6" height="4" rx="1.5" fill="#1a1a2a" opacity="0.85"/>
+      <rect x="265" y="201" width="6" height="4" rx="1.5" fill="#1a1a2a" opacity="0.85"/>
+      <line x1="263" y1="203" x2="265" y2="203" stroke="#1a1a2a" stroke-width="0.8"/>
+      <!-- Smile -->
+      <path d="M259 207 Q262 210 265 207" stroke="#a06040" stroke-width="1" fill="none" stroke-linecap="round"/>
+
+      <!-- Small flowers on ground -->
+      <circle cx="160" cy="262" r="4" fill="#f0a0b0" opacity="0.8"/>
+      <circle cx="155" cy="262" r="2" fill="#fff0d0"/>
+      <circle cx="165" cy="260" r="2" fill="#f0d080" opacity="0.7"/>
+
+      <circle cx="385" cy="260" r="3.5" fill="#d0b0e0" opacity="0.8"/>
+      <circle cx="392" cy="258" r="2.5" fill="#f0e0a0" opacity="0.7"/>
+
+      <!-- Birds -->
+      <path d="M120 90 Q125 86 130 90" stroke="#5a6848" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M136 80 Q142 76 148 80" stroke="#5a6848" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M390 75 Q396 71 402 75" stroke="#5a6848" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M408 88 Q413 84 418 88" stroke="#5a6848" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+      <!-- Rhinebeck rolling hills texture dots -->
+      <circle cx="100" cy="258" r="1.5" fill="#6aaa60" opacity="0.5"/>
+      <circle cx="420" cy="256" r="1.5" fill="#6aaa60" opacity="0.5"/>
+
+      <!-- "Happy Birthday Caroline" in the sky, soft -->
+      <text x="270" y="58" text-anchor="middle"
+            font-family="Georgia, serif" font-style="italic" font-size="14"
+            fill="#7a5030" opacity="0.75" letter-spacing="1">Happy Birthday, Caroline</text>
+
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <div class="header" id="pageHeader">
+    <div class="date-line">Sunday 24th May &nbsp;·&nbsp; 9 – 11am</div>
+    <h1 class="headline">Morning Yoga &amp;<br><span>Brunch</span></h1>
+    <div class="sub-headline">A birthday celebration for Caroline</div>
+    <p class="subtext">
+      Join us for a gentle morning practice<br>
+      followed by brunch in the sun
+    </p>
+    <div class="details">
+      Pool House · 46 Will Tremper Drive<br>
+      Rhinebeck, NY 12572
+    </div>
+    <div class="kids-badge">🧒 Kids very welcome</div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-wrap" id="formSection">
+    <div class="form-title" id="formTitle">Kindly reply</div>
+
+    <form id="rsvpForm" method="POST"
+          data-endpoint="https://script.google.com/macros/s/AKfycbwzE3WR3mjVemJLW3TYTPm56EJPuzROmCPlHA_vUuQb7NaD6SDcaG_Nangs1w2nxARV/exec">
+      <input type="hidden" name="form_source" value="Yoga" />
+
+      <!-- Attending? -->
+      <div class="field">
+        <label>Will you be joining us?</label>
+        <div class="rsvp-toggle">
+          <div>
+            <input type="radio" name="attending" id="yes" value="Yes – delighted to attend" required />
+            <label for="yes">Joyfully accepts</label>
+          </div>
+          <div class="decline">
+            <input type="radio" name="attending" id="no" value="No – regretfully declines" />
+            <label for="no">Regretfully declines</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="field">
+        <label for="name">Name(s)</label>
+        <input type="text" id="name" name="name" placeholder="Jane & John Smith" required />
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+      </div>
+
+      <!-- Guest counts -->
+      <div class="guest-section" id="guestSection">
+        <div class="row-2">
+          <div class="field">
+            <label for="adults">Adults</label>
+            <input type="number" id="adults" name="adults" min="0" max="20" value="1" />
+          </div>
+          <div class="field">
+            <label for="kids">Children</label>
+            <input type="number" id="kids" name="kids" min="0" max="20" value="0" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="dietary">Dietary requirements</label>
+          <select id="dietary" name="dietary">
+            <option value="None">None</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Vegan">Vegan</option>
+            <option value="Gluten free">Gluten free</option>
+            <option value="Other (see message)">Other – I'll add a note below</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="field">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" placeholder="Birthday wishes, notes, anything…"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Send Reply</button>
+    </form>
+
+    <!-- Success: attending -->
+    <div class="success-msg" id="successYes">
+      <div class="success-icon">🧘‍♀️</div>
+      <h2>See you on the mat!</h2>
+      <div class="success-divider"></div>
+      <p>
+        Wonderful — your reply has been received.<br>
+        We can't wait to celebrate Caroline with you on May 24th.
+      </p>
+    </div>
+
+    <!-- Success: declining -->
+    <div class="success-msg" id="successNo">
+      <div class="success-icon">🌸</div>
+      <h2>We'll miss you</h2>
+      <div class="success-divider"></div>
+      <p>
+        Thank you for letting us know.<br>
+        We'll raise a brunch glass in your honour.
+      </p>
+    </div>
+  </div>
+
+  <!-- Divider & footer -->
+  <div class="sage-rule"></div>
+  <div class="footer-text">
+    Pool House · 46 Will Tremper Drive, Rhinebeck, NY 12572
+  </div>
+
+  <!-- Travel note -->
+  <div class="travel-note">
+    <div class="travel-heading">Our World Travels 2026/27</div>
+    <p>A few people have asked for details of our world travels. For those that want to follow along or visit, the itinerary is <a href="https://docs.google.com/spreadsheets/d/1j8Ao5ZIeLiOwDhVy41clQuvPzVP3kZSBd9hfgiodgrU/edit?gid=0#gid=0" target="_blank">here</a> — and we'll share an Instagram handle soon.</p>
+    <p>We want to make this as authentic a trip as possible so if you have friends in any of the places we're going that may be open to meeting, we'd love to connect.</p>
+  </div>
+
+</div><!-- /card -->
+
+<script>
+  const yesRadio = document.getElementById('yes');
+  const noRadio  = document.getElementById('no');
+  const guestSec = document.getElementById('guestSection');
+
+  function updateGuestSection() {
+    guestSec.classList.toggle('hidden', noRadio.checked);
+  }
+
+  yesRadio.addEventListener('change', updateGuestSection);
+  noRadio.addEventListener('change',  updateGuestSection);
+
+  const form       = document.getElementById('rsvpForm');
+  const successYes = document.getElementById('successYes');
+  const successNo  = document.getElementById('successNo');
+  const ENDPOINT   = form.dataset.endpoint;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn      = form.querySelector('.btn-submit');
+    const attended = form.querySelector('input[name="attending"]:checked');
+    const isYes    = attended && attended.value.toLowerCase().includes('yes');
+
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      await fetch(ENDPOINT, {
+        method: 'POST',
+        body:   new FormData(form),
+        mode:   'no-cors'
+      });
+      form.style.display                                   = 'none';
+      document.getElementById('pageHeader').style.display = 'none';
+      document.getElementById('formTitle').style.display  = 'none';
+      (isYes ? successYes : successNo).style.display = 'block';
+    } catch {
+      btn.textContent = 'Something went wrong — please try again';
+      btn.disabled    = false;
+    }
+  });
+</script>
+
+</body>
+</html>
