@@ -255,10 +255,42 @@
       display: flex;
       justify-content: center;
       gap: 20px;
-      padding: 0 32px 28px;
+      padding: 0 32px 20px;
       font-size: 26px;
       border-top: 1px solid rgba(212,80,42,0.15);
       padding-top: 20px;
+    }
+
+    .travel-note {
+      text-align: center;
+      padding: 16px 28px 32px;
+      border-top: 1px solid rgba(212,80,42,0.15);
+    }
+
+    .travel-heading {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #c04a22;
+      margin-bottom: 10px;
+    }
+
+    .travel-note p {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      color: #a0522d;
+      line-height: 1.7;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    .travel-note a {
+      color: #d4502a;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     /* ── Success state ── */
@@ -598,7 +630,7 @@
       ╚══════════════════════════════════════════════════════════════╝
     -->
     <form id="rsvpForm" method="POST"
-          data-endpoint="https://script.google.com/macros/s/AKfycbwzE3WR3mjVemJLW3TYTPm56EJPuzROmCPlHA_vUuQb7NaD6SDcaG_Nangs1w2nxARV/exec">
+          data-endpoint="https://script.google.com/macros/s/AKfycbwWmqQU7cEI5a7jLLSfFHVAU-MCW-OLBlw_6SyTvZLErlSSeIwIiIH8N3UZkUa1GGsL/exec">
 
       <!-- Attending? -->
       <div class="field">
@@ -695,6 +727,12 @@
   <!-- Footer icons -->
   <div class="footer-icons">
     🍔 &nbsp; 🍦 &nbsp; 🥂 &nbsp; 🕶️ &nbsp; 🌍
+  </div>
+
+  <div class="travel-note">
+    <div class="travel-heading">Our World Travels 2026/27</div>
+    <p>A few people have asked for details of our world travels. For those that want to follow along or visit, the itinerary is <a href="https://docs.google.com/spreadsheets/d/1j8Ao5ZIeLiOwDhVy41clQuvPzVP3kZSBd9hfgiodgrU/edit?gid=0#gid=0" target="_blank">here</a> — and we'll share an Instagram handle soon.</p>
+    <p>We want to make this as authentic a trip as possible so if you have friends in any of the places we're going that may be open to meeting, we'd love to connect.</p>
   </div>
 
 </div><!-- /card -->
